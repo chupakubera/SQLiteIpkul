@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SQLite Ipkul</string>
+    <string name="home">Daftar Matkul</string>
+    <string name="empty">Daftar matakuliah kosong</string>
+    <string name="btn_update">Ubah</string>
+    <string name="btn_delete">Hapus</string>
+    <string name="empty_list_text">No records found</string>
+    <string name="enter_matkul">Matakuliah</string>
+    <string name="enter_sks">Jumlah sks</string>
+    <string name="enter_indeks">Indeks Nilai</string>
+    <string name="add_matkul">TAMBAH MATKUL</string>
+    <string name="add_semester">Semester</string>
+</resources>
