@@ -7,20 +7,20 @@
     tools:context=".activity.matkul.DaftarMatkulActivity">
 
 
-    <include layout="@layout/view_judul_matkul" />
+    <include layout="@layout/view_judul_jadwal" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        app:layout_constraintTop_toBottomOf="@id/view_judul_matkul"
-        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/view_judul_jadwal"
+        android:layout_marginTop="17dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
         <ListView
-            android:id="@+id/list_view_matkul"
+            android:id="@+id/list_view_jadwal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:dividerHeight="2dp"
@@ -28,16 +28,16 @@
         </ListView>
 
         <TextView
-            android:id="@+id/empty_matkul"
+            android:id="@+id/empty_jadwal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/empty_matkul" />
+            android:text="@string/empty_jadwal" />
 
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_matkul"
+        android:id="@+id/fab_jadwal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -49,6 +49,17 @@
         app:layout_constraintBottom_toTopOf="@id/navigation"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-    <include layout="@layout/view_bottom_navigation" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_0dp"
+        android:layout_marginEnd="@dimen/dimen_0dp"
+        android:background="@color/fab_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

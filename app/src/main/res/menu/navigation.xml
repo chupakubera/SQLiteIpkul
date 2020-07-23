@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_back"
+        android:id="@+id/navigation_home"
         android:icon="@drawable/ic_action_home"
-        android:title="Home" />
+        android:title="@string/home_nav" />
 
     <item
-        android:id="@+id/navigation_usb"
+        android:id="@+id/navigation_jadwal"
         android:icon="@drawable/ic_action_calendar_month"
-        android:title="Jadwal" />
+        android:title="@string/jadwal_nav" />
 
     <item
-        android:id="@+id/navigation_logo"
+        android:id="@+id/navigation_catatan"
         android:icon="@drawable/ic_action_book"
-        android:title="Catatan" />
+        android:title="@string/catatan_nav" />
 
 </menu>
 

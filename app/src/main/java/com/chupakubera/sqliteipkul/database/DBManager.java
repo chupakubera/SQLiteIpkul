@@ -29,20 +29,27 @@ public class DBManager {
         dbHelper.close();
     }
 
-    // method to get sum value of SKS column
-    public int getSumSks() {
-        int total = 0;
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT SUM(" + DatabaseHelper.SKS + ") as Total FROM " + DatabaseHelper.TABLE_MATKUL, null);
-        if (cursor.moveToFirst()) {
-            total = cursor.getInt(cursor.getColumnIndex("Total"));
+    public Cursor allMatkul() {
+        String[] columns = new String[] { DatabaseHelper._ID, DatabaseHelper.MATKUL, DatabaseHelper.SKS,
+                DatabaseHelper.INDEKS, DatabaseHelper.SEMESTER, DatabaseHelper.BOBOT};
+        Cursor cursor = database.query(DatabaseHelper.TABLE_MATKUL, columns, null, null, null, null, DatabaseHelper.SEMESTER);
+        if (cursor != null) {
+            cursor.moveToFirst();
         }
-        return total;
+        return cursor;
+    }
+
+    public Cursor allJadwal() {
+        String[] columns = new String[] { DatabaseHelper._ID, DatabaseHelper.MATKUL_JADWAL, DatabaseHelper.HARI,
+                DatabaseHelper.WAKTU, DatabaseHelper.RUANGAN};
+        Cursor cursor = database.query(DatabaseHelper.TABLE_JADWAL, columns, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
     }
 
     public void insertMatkul(String matkul, int sks, String indeks, String semester) {
-        int jumlahSksTemp = getSumSks() + sks;
-        String jumlah_sks = Integer.toString(jumlahSksTemp);
 
         double bobotNilai = getBobot(indeks, sks);
 
@@ -53,23 +60,13 @@ public class DBManager {
         contentValuesMatkul.put(DatabaseHelper.SEMESTER, semester);
         contentValuesMatkul.put(DatabaseHelper.BOBOT, bobotNilai);
         database.insert(DatabaseHelper.TABLE_MATKUL, null, contentValuesMatkul);
-
     }
 
-    public Cursor fetch() {
-        String[] columns = new String[] { DatabaseHelper._ID, DatabaseHelper.MATKUL, DatabaseHelper.SKS,
-                                          DatabaseHelper.INDEKS, DatabaseHelper.SEMESTER, DatabaseHelper.BOBOT};
-        Cursor cursor = database.query(DatabaseHelper.TABLE_MATKUL, columns, null, null, null, null, DatabaseHelper.SEMESTER);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-        return cursor;
-    }
+
 
     public int updateMatkul(long _id, String matkul, int sks, String indeks, String semester) {
 
         double bobotNilai = getBobot(indeks, sks);
-        //double bobot = bobotNilai * sks;
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.MATKUL, matkul);
@@ -83,6 +80,51 @@ public class DBManager {
 
     public void deleteMatkul(long _id) {
         database.delete(DatabaseHelper.TABLE_MATKUL, DatabaseHelper._ID + "=" + _id, null);
+    }
+
+    public void insertJadwal(String matkul, String hari, String waktu, String ruangan) {
+        ContentValues contentValuesJadwal= new ContentValues();
+        contentValuesJadwal.put(DatabaseHelper.MATKUL_JADWAL, matkul);
+        contentValuesJadwal.put(DatabaseHelper.HARI, hari);
+        contentValuesJadwal.put(DatabaseHelper.WAKTU, waktu);
+        contentValuesJadwal.put(DatabaseHelper.RUANGAN, ruangan);
+        database.insert(DatabaseHelper.TABLE_JADWAL, null, contentValuesJadwal);
+    }
+
+    public int updateJadwal(long _id, String matkul, String hari, String waktu, String ruangan) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.MATKUL_JADWAL, matkul);
+        contentValues.put(DatabaseHelper.HARI, hari);
+        contentValues.put(DatabaseHelper.WAKTU, waktu);
+        contentValues.put(DatabaseHelper.RUANGAN, ruangan);
+        int i = database.update(DatabaseHelper.TABLE_JADWAL, contentValues, DatabaseHelper._ID + " = " + _id, null);
+        return i;
+    }
+
+    public void deleteJadwal(long _id) {
+        database.delete(DatabaseHelper.TABLE_JADWAL, DatabaseHelper._ID + "=" + _id, null);
+    }
+
+    // method to get sum value of SKS column
+    public int getSumSks() {
+        int total = 0;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT SUM(" + DatabaseHelper.SKS + ") as Total FROM " + DatabaseHelper.TABLE_MATKUL, null);
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(cursor.getColumnIndex("Total"));
+        }
+        return total;
+    }
+
+    // method to get sum value of SKS column
+    public int getSumBobot() {
+        int total = 0;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT SUM(" + DatabaseHelper.BOBOT + ") as Total FROM " + DatabaseHelper.TABLE_MATKUL, null);
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(cursor.getColumnIndex("Total"));
+        }
+        return total;
     }
 
     // method to get index convertion multiply with sks value

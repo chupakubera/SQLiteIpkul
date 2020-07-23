@@ -1,4 +1,4 @@
-package com.chupakubera.sqliteipkul.activity;
+package com.chupakubera.sqliteipkul.activity.matkul;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,16 +22,12 @@ public class UpdateMatkulActivity extends Activity implements View.OnClickListen
 
     private long _id;
 
-    private int _sks, hasil;
-
     private DBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setTitle("Update Matkul");
-
         setContentView(R.layout.activity_update_matkul);
 
         dbManager = new DBManager(this);
@@ -43,8 +39,8 @@ public class UpdateMatkulActivity extends Activity implements View.OnClickListen
         semesterText = (EditText) findViewById(R.id.semester_edittext);
 
 
-        updateBtn = (Button) findViewById(R.id.btn_update);
-        deleteBtn = (Button) findViewById(R.id.btn_delete);
+        updateBtn = (Button) findViewById(R.id.btn_update_matkul);
+        deleteBtn = (Button) findViewById(R.id.btn_delete_matkul);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
@@ -68,7 +64,7 @@ public class UpdateMatkulActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_update:
+            case R.id.btn_update_matkul:
                 String matkul = matkulText.getText().toString();
                 int sks = Integer.parseInt(sksText.getText().toString());
                 String indeks = indeksText.getText().toString();
@@ -78,7 +74,7 @@ public class UpdateMatkulActivity extends Activity implements View.OnClickListen
                 this.returnHome();
                 break;
 
-            case R.id.btn_delete:
+            case R.id.btn_delete_matkul:
                 dbManager.deleteMatkul(_id);
                 this.returnHome();
                 break;

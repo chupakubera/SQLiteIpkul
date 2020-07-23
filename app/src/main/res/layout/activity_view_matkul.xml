@@ -2,71 +2,88 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:padding="3dp"
         android:visibility="invisible" />
 
     <TextView
         android:id="@+id/matkul"
-        android:layout_width="150dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@id/sks"
         android:maxLines="1"
-        android:padding="3dp"
-        android:textSize="17sp"
-        android:textStyle="bold" />
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/sks"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/matkul"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@id/indeks"
         android:ellipsize="end"
         android:maxLines="2"
-        android:padding="3dp"
-        android:visibility="visible" />
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="visible"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/indeks"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/sks"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@id/semester"
         android:ellipsize="end"
         android:maxLines="2"
-        android:padding="3dp"
-        android:visibility="visible" />
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="visible"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/semester"
-        android:layout_width="50dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/indeks"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@id/bobot"
         android:ellipsize="end"
         android:maxLines="2"
-        android:padding="3dp"
-        android:visibility="visible" />
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="visible"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/bobot"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/semester"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentEnd="true"
         android:ellipsize="end"
         android:maxLines="2"
-        android:padding="3dp"
-        android:visibility="visible" />
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="visible"
+        android:textAlignment="center"/>
 
 </RelativeLayout>

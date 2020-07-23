@@ -1,13 +1,36 @@
 <resources>
+
     <string name="app_name">SQLite Ipkul</string>
     <string name="home">Daftar Matkul</string>
-    <string name="empty">Daftar matakuliah kosong</string>
+    <string name="jadwal">Jadwal Kuliah</string>
+    <string name="catatan">Catatan Penting</string>
+
+    <string name="empty_matkul">Daftar matakuliah kosong</string>
+    <string name="empty_jadwal">Jadwal kuliah kosong</string>
+
     <string name="btn_update">Ubah</string>
     <string name="btn_delete">Hapus</string>
-    <string name="empty_list_text">No records found</string>
+
     <string name="enter_matkul">Matakuliah</string>
     <string name="enter_sks">Jumlah sks</string>
     <string name="enter_indeks">Indeks Nilai</string>
+
     <string name="add_matkul">TAMBAH MATKUL</string>
+    <string name="add_jadwal">TAMBAH JADWAL</string>
     <string name="add_semester">Semester</string>
+    <string name="tampilkan_ipk">TAMPILKAN IPK</string>
+
+    <string name="home_nav">Home</string>
+    <string name="jadwal_nav">Jadwal</string>
+    <string name="catatan_nav">Catatan</string>
+
+    <string name="judul_matkul">Matkul</string>
+    <string name="judul_hari">Hari</string>
+    <string name="judul_waktu">Waktu</string>
+    <string name="judul_ruangan">Ruangan</string>
+    <string name="judul_sks">SKS</string>
+    <string name="judul_nilai">Nilai</string>
+    <string name="judul_bobot">Bobot</string>
+    <string name="judul_semester">Semester</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.chupakubera.sqliteipkul.activity;
+package com.chupakubera.sqliteipkul.activity.matkul;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,21 +11,22 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chupakubera.sqliteipkul.R;
+import com.chupakubera.sqliteipkul.activity.catatan.CatatanActivity;
+import com.chupakubera.sqliteipkul.activity.jadwal.JadwalActivity;
 import com.chupakubera.sqliteipkul.database.DBManager;
 import com.chupakubera.sqliteipkul.database.DatabaseHelper;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DaftarMatkulActivity extends AppCompatActivity {
 
     private DBManager dbManager;
-
     private ListView listView;
-
     private SimpleCursorAdapter adapter;
-
-    public static int sksTotal;
 
     final String[] from = new String[] { DatabaseHelper._ID, DatabaseHelper.MATKUL,
             DatabaseHelper.SKS, DatabaseHelper.INDEKS, DatabaseHelper.SEMESTER, DatabaseHelper.BOBOT };
@@ -39,10 +40,22 @@ public class DaftarMatkulActivity extends AppCompatActivity {
 
         dbManager = new DBManager(this);
         dbManager.open();
-        Cursor cursor = dbManager.fetch();
+        Cursor cursor = dbManager.allMatkul();
 
-        listView = (ListView) findViewById(R.id.list_view);
-        listView.setEmptyView(findViewById(R.id.empty));
+        // floating button for insert matkul
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_matkul);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent tambah_matkul = new Intent(getApplicationContext(), TambahMatkulActivity.class);
+                startActivity(tambah_matkul);
+
+            }
+        });
+
+        listView = (ListView) findViewById(R.id.list_view_matkul);
+        listView.setEmptyView(findViewById(R.id.empty_matkul));
 
         adapter = new SimpleCursorAdapter(this, R.layout.activity_view_matkul, cursor, from, to, 0);
         adapter.notifyDataSetChanged();
@@ -80,6 +93,27 @@ public class DaftarMatkulActivity extends AppCompatActivity {
             }
         });
 
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        break;
+                    case R.id.navigation_jadwal:
+                        Intent a = new Intent(DaftarMatkulActivity.this, JadwalActivity.class);
+                        a.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(a);
+                        break;
+                    case R.id.navigation_catatan:
+                        Intent b = new Intent(DaftarMatkulActivity.this, CatatanActivity.class);
+                        b.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(b);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -92,12 +126,13 @@ public class DaftarMatkulActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.add_matkul) {
+        if (id == R.id.tampil_ipk) {
 
-            Intent add_mem = new Intent(this, TambahMatkulActivity.class);
+            Intent add_mem = new Intent(this, TampilkanIpkActivity.class);
             startActivity(add_mem);
 
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

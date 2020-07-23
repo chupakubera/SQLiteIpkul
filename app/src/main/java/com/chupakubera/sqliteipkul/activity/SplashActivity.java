@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.chupakubera.sqliteipkul.R;
+import com.chupakubera.sqliteipkul.activity.matkul.DaftarMatkulActivity;
 
 public class SplashActivity extends Activity {
-    private int loading_time = 4000;    // 4 detik waktu loading screen
+    private int loading_time = 2000;    // 2 detik waktu loading screen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

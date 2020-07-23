@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+
+    <EditText
+        android:id="@+id/matkulJadwal_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_matkul" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/hari_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/judul_hari">
+    </EditText>
+
+    <EditText
+        android:id="@+id/waktu_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/judul_waktu">
+    </EditText>
+
+    <EditText
+        android:id="@+id/ruangan_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/judul_ruangan">
+    </EditText>
+
+    <Button
+        android:id="@+id/add_jadwal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:text="@string/add_jadwal" />
+
+</LinearLayout>

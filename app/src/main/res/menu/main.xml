@@ -2,10 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/add_matkul"
-        android:icon="@drawable/ic_action_add"
+        android:id="@+id/tampil_ipk"
         android:orderInCategory="100"
-        android:title="@string/add_matkul"
-        app:showAsAction="always"/>
+        android:title="@string/tampilkan_ipk"
+        app:showAsAction="never"/>
 
 </menu>

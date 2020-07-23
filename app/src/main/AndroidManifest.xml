@@ -23,15 +23,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.DaftarMatkulActivity" android:label="@string/home"></activity>
+        <activity android:name=".activity.matkul.DaftarMatkulActivity" android:label="@string/home"></activity>
+        <activity android:name=".activity.jadwal.JadwalActivity" android:label="@string/jadwal"></activity>
+        <activity android:name=".activity.catatan.CatatanActivity" android:label="@string/catatan"></activity>
 
         <activity android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
-            android:name=".activity.UpdateMatkulActivity"
-            android:label="@string/app_name" />
+            android:name=".activity.matkul.UpdateMatkulActivity"/>
 
         <activity android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
-            android:name=".activity.TambahMatkulActivity"
-            android:label="@string/app_name" />
+            android:name=".activity.matkul.TambahMatkulActivity"/>
+
+        <activity android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+            android:name=".activity.jadwal.TambahJadwalActivity"/>
+
+        <activity android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+            android:name=".activity.matkul.TampilkanIpkActivity"/>
+
+        <activity android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+            android:name=".activity.jadwal.UpdateJadwalActivity"/>
     </application>
 
 </manifest>

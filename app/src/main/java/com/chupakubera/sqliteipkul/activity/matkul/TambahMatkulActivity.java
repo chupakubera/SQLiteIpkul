@@ -1,4 +1,4 @@
-package com.chupakubera.sqliteipkul.activity;
+package com.chupakubera.sqliteipkul.activity.matkul;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,9 +22,7 @@ public class TambahMatkulActivity extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setTitle("Tambah Matakuliah");
-
         setContentView(R.layout.activity_tambah_matkul);
 
         matkulEditText = (EditText) findViewById(R.id.matkul_edittext);
