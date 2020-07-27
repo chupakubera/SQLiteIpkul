@@ -1,7 +1,9 @@
 package com.chupakubera.sqliteipkul.activity.jadwal;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,12 @@ import com.chupakubera.sqliteipkul.activity.catatan.CatatanActivity;
 import com.chupakubera.sqliteipkul.activity.matkul.DaftarMatkulActivity;
 import com.chupakubera.sqliteipkul.database.DBManager;
 import com.chupakubera.sqliteipkul.database.DatabaseHelper;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,6 +35,7 @@ public class JadwalActivity extends AppCompatActivity {
     private DBManager dbManager;
     private ListView listView;
     private SimpleCursorAdapter adapter;
+    private AdView mAdView;
 
     final String[] jadwal_from = new String[] { DatabaseHelper._ID, DatabaseHelper.MATKUL_JADWAL,
             DatabaseHelper.HARI, DatabaseHelper.WAKTU, DatabaseHelper.RUANGAN};
@@ -42,17 +51,25 @@ public class JadwalActivity extends AppCompatActivity {
         dbManager.open();
         Cursor cursor = dbManager.allJadwal();
 
-        // floating button for insert jadwal
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_jadwal);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        TextView textViewMatkul = (TextView) findViewById(R.id.matkul_jadwal);
+        TextView textViewHari = (TextView) findViewById(R.id.hari_jadwal);
+        TextView textViewWaktu = (TextView) findViewById(R.id.waktu_jadwal);
+        TextView textViewRuangan = (TextView) findViewById(R.id.ruangan_jadwal);
 
-                Intent tambah_jadwal = new Intent(getApplicationContext(), TambahJadwalActivity.class);
-                startActivity(tambah_jadwal);
+        int jadwal = dbManager.getCountJadwal();
 
-            }
-        });
+        if (jadwal == 0) {
+            textViewMatkul.setVisibility(View.GONE);
+            textViewHari.setVisibility(View.GONE);
+            textViewWaktu.setVisibility(View.GONE);
+            textViewRuangan.setVisibility(View.GONE);
+        }
+        else {
+            textViewMatkul.setVisibility(View.VISIBLE);
+            textViewHari.setVisibility(View.VISIBLE);
+            textViewWaktu.setVisibility(View.VISIBLE);
+            textViewRuangan.setVisibility(View.VISIBLE);
+        }
 
         listView = (ListView) findViewById(R.id.list_view_jadwal);
         listView.setEmptyView(findViewById(R.id.empty_jadwal));
@@ -62,7 +79,7 @@ public class JadwalActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        // OnCLickListener listview daftar matakuliah
+        // OnCLickListener listview jadwal
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -91,7 +108,21 @@ public class JadwalActivity extends AppCompatActivity {
         });
 
 
+        // floating button for insert jadwal
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_jadwal);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent tambah_jadwal = new Intent(getApplicationContext(), TambahJadwalActivity.class);
+                startActivity(tambah_jadwal);
+
+            }
+        });
+
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.getMenu().findItem(R.id.navigation_jadwal).setChecked(true);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -6,47 +6,30 @@
     android:orientation="vertical"
     android:padding="20dp" >
 
+
     <EditText
-        android:id="@+id/matkul_edittext"
+        android:id="@+id/keterangan_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/enter_matkul"
-        android:importantForAutofill="no"
-        android:inputType="text"
+        android:hint="@string/keterangan"
         android:backgroundTint="@color/colorPrimary">
-
         <requestFocus />
     </EditText>
 
     <EditText
-        android:id="@+id/sks_edittext"
+        android:id="@+id/note_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/enter_sks"
-        android:importantForAutofill="no"
-        android:inputType="number"
+        android:gravity="top"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="4"
+        android:hint="@string/catatan"
         android:backgroundTint="@color/colorPrimary" >
     </EditText>
 
-    <Spinner
-        android:id="@+id/indeks_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_10dp" />
-
-
-    <Spinner
-        android:id="@+id/semester_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_10dp" />
-
     <Button
-        android:id="@+id/add_matkul"
+        android:id="@+id/add_catatan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

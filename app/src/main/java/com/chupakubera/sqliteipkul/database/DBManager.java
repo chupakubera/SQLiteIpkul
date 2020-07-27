@@ -5,6 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.Spanned;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class DBManager {
@@ -43,6 +48,15 @@ public class DBManager {
         String[] columns = new String[] { DatabaseHelper._ID, DatabaseHelper.MATKUL_JADWAL, DatabaseHelper.HARI,
                 DatabaseHelper.WAKTU, DatabaseHelper.RUANGAN};
         Cursor cursor = database.query(DatabaseHelper.TABLE_JADWAL, columns, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public Cursor allCatatan() {
+        String[] columns = new String[] { DatabaseHelper._ID, DatabaseHelper.DATESTAMP, DatabaseHelper.KETERANGAN, DatabaseHelper.NOTE};
+        Cursor cursor = database.query(DatabaseHelper.TABLE_CATATAN, columns, null, null, null, null, DatabaseHelper.DATESTAMP);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -105,6 +119,34 @@ public class DBManager {
         database.delete(DatabaseHelper.TABLE_JADWAL, DatabaseHelper._ID + "=" + _id, null);
     }
 
+    public void insertCatatan(String keterangan, String note) {
+
+        String datestamp = getDateStamp();
+
+        ContentValues contentValues= new ContentValues();
+        contentValues.put(DatabaseHelper.DATESTAMP, datestamp);
+        contentValues.put(DatabaseHelper.KETERANGAN, keterangan);
+        contentValues.put(DatabaseHelper.NOTE, note);
+        database.insert(DatabaseHelper.TABLE_CATATAN, null, contentValues);
+    }
+
+    public int updateCatatan(long _id, String keterangan,  String note) {
+        ContentValues contentValues = new ContentValues();
+
+        String datestamp = getDateStamp();
+
+        contentValues.put(DatabaseHelper.DATESTAMP, datestamp);
+        contentValues.put(DatabaseHelper.KETERANGAN, keterangan);
+        contentValues.put(DatabaseHelper.NOTE, note);
+        int i = database.update(DatabaseHelper.TABLE_CATATAN, contentValues, DatabaseHelper._ID + " = " + _id, null);
+        return i;
+    }
+
+    public void deleteCatatan(long _id) {
+        database.delete(DatabaseHelper.TABLE_CATATAN, DatabaseHelper._ID + "=" + _id, null);
+    }
+
+
     // method to get sum value of SKS column
     public int getSumSks() {
         int total = 0;
@@ -127,43 +169,56 @@ public class DBManager {
         return total;
     }
 
+    // method to count column hari
+    public int getCountJadwal() {
+        int total = 0;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(" + DatabaseHelper.HARI + ") as Total FROM " + DatabaseHelper.TABLE_JADWAL, null);
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(cursor.getColumnIndex("Total"));
+        }
+        return total;
+    }
+
     // method to get index convertion multiply with sks value
     public double getBobot(String nilai, int sks) {
         double bobot;
-        if (nilai.equals("A") || nilai.equals("a")) {
+        if (nilai.equals("A")) {
             bobot =   4.0;
         }
-        else if (nilai.equals("AB") || nilai.equals("Ab") || nilai.equals("aB") || nilai.equals("ab") || nilai.equals("BA") || nilai.equals("Ba") || nilai.equals("bA") || nilai.equals("ba") ||
-                nilai.equals("B+") || nilai.equals("b+")) {
+        else if (nilai.equals("B+")) {
             bobot = 3.5;
         }
-        else if (nilai.equals("B") || nilai.equals("b")) {
+        else if (nilai.equals("B")) {
             bobot = 3.0;
         }
-        else if (nilai.equals("BC") || nilai.equals("Bc") || nilai.equals("bC") || nilai.equals("bc") || nilai.equals("CB") || nilai.equals("Cb") || nilai.equals("cB") || nilai.equals("cb") ||
-                nilai.equals("C+") || nilai.equals("c+")) {
+        else if (nilai.equals("C+")) {
             bobot = 2.5;
         }
-        else if (nilai.equals("C") || nilai.equals("c")) {
+        else if (nilai.equals("C")) {
             bobot = 2.0;
         }
-        else if (nilai.equals("CD") || nilai.equals("Cd") || nilai.equals("cD") || nilai.equals("cd") || nilai.equals("DC") || nilai.equals("Dc") || nilai.equals("dC") || nilai.equals("dc") ||
-                nilai.equals("D+") || nilai.equals("d+")) {
+        else if (nilai.equals("D+")) {
             bobot = 1.5;
         }
-        else if (nilai.equals("D") || nilai.equals("d")) {
+        else if (nilai.equals("D")) {
             bobot = 1.0;
         }
-        else if (nilai.equals("DE") || nilai.equals("De") || nilai.equals("dE") || nilai.equals("de") || nilai.equals("ED") || nilai.equals("Ed") || nilai.equals("eD") || nilai.equals("ed") ||
-                nilai.equals("E+") || nilai.equals("e+")) {
-            bobot = 0.5;
-        }
-        else if (nilai.equals("E") || nilai.equals("e")) {
+        else if (nilai.equals("E")) {
             bobot = 0;
         } else {
             bobot = 0;
         }
         return bobot * sks;
+    }
+
+    // return datestamp with output : 24 Jul 2020
+    public static String getDateStamp() {
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("d MMM yyyy");
+        String dateStamp = formatter.format(timestamp);
+        return dateStamp;
     }
 
 }

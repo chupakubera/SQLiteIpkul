@@ -4,12 +4,14 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_action_home"
-        android:title="@string/home_nav" />
+        android:title="@string/home_nav"
+        android:iconTint="@android:color/black" />
 
     <item
         android:id="@+id/navigation_jadwal"
         android:icon="@drawable/ic_action_calendar_month"
-        android:title="@string/jadwal_nav" />
+        android:title="@string/jadwal_nav"
+        android:checked="true"/>
 
     <item
         android:id="@+id/navigation_catatan"

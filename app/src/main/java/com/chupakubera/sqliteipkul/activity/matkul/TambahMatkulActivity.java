@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.chupakubera.sqliteipkul.R;
 import com.chupakubera.sqliteipkul.database.DBManager;
@@ -14,8 +17,8 @@ public class TambahMatkulActivity extends Activity implements View.OnClickListen
     private Button addTodoBtn;
     private EditText matkulEditText;
     private EditText sksEditText;
-    private EditText indeksEditText;
-    private EditText semesterEditText;
+    private Spinner indeksSpinner;
+    private Spinner semesterSpinner;
 
     private DBManager dbManager;
 
@@ -27,8 +30,28 @@ public class TambahMatkulActivity extends Activity implements View.OnClickListen
 
         matkulEditText = (EditText) findViewById(R.id.matkul_edittext);
         sksEditText = (EditText) findViewById(R.id.sks_edittext);
-        indeksEditText = (EditText) findViewById(R.id.indeks_edittext);
-        semesterEditText = (EditText) findViewById(R.id.semester_edittext);
+        indeksSpinner = (Spinner) findViewById(R.id.indeks_spinner);
+        semesterSpinner = (Spinner) findViewById(R.id.semester_spinner);
+
+        // add view to spinner
+        indeksSpinner = (Spinner) findViewById(R.id.indeks_spinner);
+        semesterSpinner = (Spinner) findViewById(R.id.semester_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter1 = ArrayAdapter
+                .createFromResource(this, R.array.indeks_array,
+                        android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> staticAdapter2 = ArrayAdapter
+                .createFromResource(this, R.array.semester_array,
+                        android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        staticAdapter1
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        staticAdapter2
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        indeksSpinner.setAdapter(staticAdapter1);
+        semesterSpinner.setAdapter(staticAdapter2);
+
 
         addTodoBtn = (Button) findViewById(R.id.add_matkul);
 
@@ -43,16 +66,30 @@ public class TambahMatkulActivity extends Activity implements View.OnClickListen
             case R.id.add_matkul:
 
                 final String matkul = matkulEditText.getText().toString();
-                final int sks = Integer.parseInt(sksEditText.getText().toString());
-                final String indeks = indeksEditText.getText().toString();
-                final String semester = semesterEditText.getText().toString();
+                String sks = sksEditText.getText().toString();
+                // Get value of the spinner to variable indeks and semester
+                final String indeks = indeksSpinner.getSelectedItem().toString();
+                final String semester = semesterSpinner.getSelectedItem().toString();
 
-                dbManager.insertMatkul(matkul, sks, indeks, semester);
+                if (matkul.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "Isikan mata kuliah", Toast.LENGTH_SHORT).show();
+                } else if (sks.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "Isikan sks", Toast.LENGTH_SHORT).show();
+                } else if (indeks.equals("Nilai")) {
+                    Toast.makeText(getBaseContext(), "Pilih nilai", Toast.LENGTH_SHORT).show();
+                } else if (semester.equals("Semester")) {
+                    Toast.makeText(getBaseContext(), "Pilih Semester", Toast.LENGTH_SHORT).show();
+                } else {
+                    int _sks = Integer.parseInt(sks);
 
-                Intent main = new Intent(TambahMatkulActivity.this, DaftarMatkulActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    dbManager.insertMatkul(matkul, _sks, indeks, semester);
 
-                startActivity(main);
+                    Intent main = new Intent(TambahMatkulActivity.this, DaftarMatkulActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    startActivity(main);
+                }
+
                 break;
         }
     }

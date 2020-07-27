@@ -7,38 +7,24 @@
     android:padding="10dp" >
 
     <EditText
-        android:id="@+id/matkulJadwal_edittext"
+        android:id="@+id/keterangan_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/enter_matkul"
-        android:backgroundTint="@color/colorPrimary" >
+        android:hint="@string/keterangan"
+        android:backgroundTint="@color/colorPrimary">
 
         <requestFocus />
     </EditText>
 
-    <Spinner
-        android:id="@+id/hari_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_10dp" />
-
     <EditText
-        android:id="@+id/waktu_edittext"
+        android:id="@+id/note_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/hint_waktu"
-        android:backgroundTint="@color/colorPrimary" >
-    </EditText>
-
-    <EditText
-        android:id="@+id/ruangan_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/judul_ruangan"
+        android:gravity="top"
+        android:lines="4"
+        android:hint="@string/note"
         android:backgroundTint="@color/colorPrimary" >
     </EditText>
 
@@ -51,7 +37,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btn_update_jadwal"
+            android:id="@+id/btn_update_catatan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -60,7 +46,7 @@
             android:fontFamily="sans-serif" />
 
         <Button
-            android:id="@+id/btn_delete_jadwal"
+            android:id="@+id/btn_delete_catatan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

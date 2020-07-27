@@ -1,7 +1,9 @@
 package com.chupakubera.sqliteipkul.activity.matkul;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,12 @@ import com.chupakubera.sqliteipkul.activity.catatan.CatatanActivity;
 import com.chupakubera.sqliteipkul.activity.jadwal.JadwalActivity;
 import com.chupakubera.sqliteipkul.database.DBManager;
 import com.chupakubera.sqliteipkul.database.DatabaseHelper;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,6 +35,7 @@ public class DaftarMatkulActivity extends AppCompatActivity {
     private DBManager dbManager;
     private ListView listView;
     private SimpleCursorAdapter adapter;
+    private AdView mAdView;
 
     final String[] from = new String[] { DatabaseHelper._ID, DatabaseHelper.MATKUL,
             DatabaseHelper.SKS, DatabaseHelper.INDEKS, DatabaseHelper.SEMESTER, DatabaseHelper.BOBOT };
@@ -38,21 +47,31 @@ public class DaftarMatkulActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_daftar_matkul);
 
+
         dbManager = new DBManager(this);
         dbManager.open();
         Cursor cursor = dbManager.allMatkul();
 
-        // floating button for insert matkul
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_matkul);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent tambah_matkul = new Intent(getApplicationContext(), TambahMatkulActivity.class);
-                startActivity(tambah_matkul);
+        TextView textViewMatkul = (TextView) findViewById(R.id.judul_matkul);
+        TextView textViewSks = (TextView) findViewById(R.id.judul_sks);
+        TextView textViewNilai = (TextView) findViewById(R.id.judul_indeks);
+        TextView textViewSemester = (TextView) findViewById(R.id.judul_semester);
 
-            }
-        });
+        int sks = dbManager.getSumSks();
+
+        if (sks == 0) {
+            textViewMatkul.setVisibility(View.GONE);
+            textViewSks.setVisibility(View.GONE);
+            textViewNilai.setVisibility(View.GONE);
+            textViewSemester.setVisibility(View.GONE);
+        }
+        else {
+            textViewMatkul.setVisibility(View.VISIBLE);
+            textViewSks.setVisibility(View.VISIBLE);
+            textViewNilai.setVisibility(View.VISIBLE);
+            textViewSemester.setVisibility(View.VISIBLE);
+        }
 
         listView = (ListView) findViewById(R.id.list_view_matkul);
         listView.setEmptyView(findViewById(R.id.empty_matkul));
@@ -93,7 +112,20 @@ public class DaftarMatkulActivity extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        // floating button for insert matkul
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_matkul);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent tambah_matkul = new Intent(getApplicationContext(), TambahMatkulActivity.class);
+                startActivity(tambah_matkul);
+
+            }
+        });
+
+        BottomNavigationItemView home =(BottomNavigationItemView) findViewById(R.id.navigation_home);
+        final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -7,10 +7,10 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/ic_logo_round"
+        android:roundIcon="@drawable/ic_logo_round"
         android:supportsRtl="true"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
         <activity
@@ -23,9 +23,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.matkul.DaftarMatkulActivity" android:label="@string/home"></activity>
-        <activity android:name=".activity.jadwal.JadwalActivity" android:label="@string/jadwal"></activity>
-        <activity android:name=".activity.catatan.CatatanActivity" android:label="@string/catatan"></activity>
+        <activity
+            android:name=".activity.matkul.DaftarMatkulActivity"
+            android:label="@string/home" />
+        <activity
+            android:name=".activity.jadwal.JadwalActivity"
+            android:label="@string/jadwal" />
+
+        <activity android:name=".activity.catatan.CatatanActivity"
+            android:label="@string/catatan" />
 
         <activity android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
             android:name=".activity.matkul.UpdateMatkulActivity"/>
@@ -41,6 +47,17 @@
 
         <activity android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
             android:name=".activity.jadwal.UpdateJadwalActivity"/>
+
+        <activity android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+            android:name=".activity.catatan.TambahCatatanActivity"/>
+
+        <activity android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+            android:name=".activity.catatan.UpdateCatatanActivity"/>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true"/>
+
     </application>
 
 </manifest>

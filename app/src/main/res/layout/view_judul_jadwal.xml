@@ -12,69 +12,61 @@
 
     <TextView
         android:id="@+id/matkul_jadwal"
-        android:layout_width="fill_parent"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_10dp"
-        android:layout_marginRight="@dimen/dimen_10dp"
-        android:layout_toStartOf="@id/hari_jadwal"
-        android:maxLines="1"
-        android:paddingRight="@dimen/dimen_3dp"
-        android:paddingLeft="@dimen/dimen_3dp"
-        android:paddingTop="@dimen/dimen_5dp"
-        android:paddingBottom="@dimen/dimen_10dp"
-        android:textSize="@dimen/dimen_15sp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentStart="true"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="15sp"
+        android:paddingLeft="11dp"
         android:text="@string/judul_matkul"
-        android:textStyle="bold" />
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-black"/>
+
 
     <TextView
         android:id="@+id/hari_jadwal"
-        android:layout_width="@dimen/dimen_75dp"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:layout_toStartOf="@id/waktu_jadwal"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/matkul_jadwal"
         android:ellipsize="end"
-        android:maxLines="2"
-        android:paddingRight="@dimen/dimen_3dp"
-        android:paddingLeft="@dimen/dimen_3dp"
-        android:paddingTop="@dimen/dimen_5dp"
-        android:paddingBottom="@dimen/dimen_10dp"
-        android:textSize="@dimen/dimen_15sp"
-        android:visibility="visible"
+        android:maxLines="1"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="11dp"
         android:text="@string/judul_hari"
-        android:textStyle="bold"/>
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-black"/>
+
 
     <TextView
         android:id="@+id/waktu_jadwal"
-        android:layout_width="@dimen/dimen_75dp"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:layout_toStartOf="@id/ruangan_jadwal"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/hari_jadwal"
         android:ellipsize="end"
-        android:maxLines="2"
-        android:paddingRight="@dimen/dimen_3dp"
-        android:paddingLeft="@dimen/dimen_3dp"
-        android:paddingTop="@dimen/dimen_5dp"
-        android:paddingBottom="@dimen/dimen_10dp"
-        android:textSize="@dimen/dimen_15sp"
-        android:visibility="visible"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="11dp"
         android:text="@string/judul_waktu"
-        android:textStyle="bold"/>
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-black"/>
 
     <TextView
         android:id="@+id/ruangan_jadwal"
-        android:layout_width="@dimen/dimen_75dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/waktu_jadwal"
         android:ellipsize="end"
-        android:maxLines="2"
-        android:paddingRight="@dimen/dimen_3dp"
-        android:paddingLeft="@dimen/dimen_3dp"
-        android:paddingTop="@dimen/dimen_5dp"
-        android:paddingBottom="@dimen/dimen_10dp"
-        android:textSize="@dimen/dimen_15sp"
-        android:visibility="visible"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="11dp"
         android:text="@string/judul_ruangan"
-        android:textStyle="bold"/>
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-black"/>
 
 </RelativeLayout>

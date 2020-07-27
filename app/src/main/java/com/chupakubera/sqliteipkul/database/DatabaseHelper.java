@@ -6,9 +6,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    // name table
+    // name tables
     public static final String TABLE_MATKUL = "DAFTAR_MATKUL";
     public static final String TABLE_JADWAL = "JADWAL_KULIAH";
+    public static final String TABLE_CATATAN = "CATATAN_KULIAH";
 
     // column table TABLE_MATKUL
     public static final String _ID = "_id";
@@ -23,6 +24,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String HARI = "hari";
     public static final String WAKTU = "waktu";
     public static final String RUANGAN = "ruangan";
+
+    // column table TABLE_CATATAN
+    public static final String DATESTAMP = "datestamp";
+    public static final String KETERANGAN = "keterangan";
+    public static final String NOTE = "note";
 
     // name database
     static final String DB_NAME = "IP_KULIAH.DB";
@@ -49,6 +55,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             RUANGAN + " TEXT " +
             ");";
 
+    // make query for table TABLE_CATATAN
+    private static final String CREATE_TABLE_CATATAN = "create table " + TABLE_CATATAN + "(" +
+            _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            DATESTAMP + " TEXT, " +
+            KETERANGAN + " TEXT, " +
+            NOTE + " TEXT " +
+            ");";
+
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -57,12 +71,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_MATKUL);
         db.execSQL(CREATE_TABLE_JADWAL);
+        db.execSQL(CREATE_TABLE_CATATAN);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MATKUL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_JADWAL);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATATAN);
         onCreate(db);
     }
 }

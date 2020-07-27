@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.chupakubera.sqliteipkul.R;
 import com.chupakubera.sqliteipkul.database.DBManager;
@@ -13,9 +16,10 @@ import com.chupakubera.sqliteipkul.database.DBManager;
 public class TambahJadwalActivity extends Activity implements View.OnClickListener {
     private Button addTodoBtn;
     private EditText matkulEditText;
-    private EditText hariEditText;
     private EditText waktuEditText;
     private EditText ruanganEditText;
+
+    private Spinner staticSpinner;
 
     private DBManager dbManager;
 
@@ -26,7 +30,6 @@ public class TambahJadwalActivity extends Activity implements View.OnClickListen
         setContentView(R.layout.activity_tambah_jadwal);
 
         matkulEditText = (EditText) findViewById(R.id.matkulJadwal_edittext);
-        hariEditText = (EditText) findViewById(R.id.hari_edittext);
         waktuEditText = (EditText) findViewById(R.id.waktu_edittext);
         ruanganEditText = (EditText) findViewById(R.id.ruangan_edittext);
 
@@ -35,6 +38,20 @@ public class TambahJadwalActivity extends Activity implements View.OnClickListen
         dbManager = new DBManager(this);
         dbManager.open();
         addTodoBtn.setOnClickListener(this);
+
+        // add view to spinner
+        staticSpinner = (Spinner) findViewById(R.id.hari_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                .createFromResource(this, R.array.hari_array,
+                        android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        staticAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(staticAdapter);
+        // Get value of the spinner to variable hari
+        String hari = staticSpinner.getSelectedItem().toString();
     }
 
     @Override
@@ -43,16 +60,27 @@ public class TambahJadwalActivity extends Activity implements View.OnClickListen
             case R.id.add_jadwal:
 
                 final String matkul = matkulEditText.getText().toString();
-                final String hari = hariEditText.getText().toString();
+                final String hari = staticSpinner.getSelectedItem().toString();
                 final String waktu = waktuEditText.getText().toString();
                 final String ruangan = ruanganEditText.getText().toString();
 
-                dbManager.insertJadwal(matkul, hari, waktu, ruangan);
+                if (matkul.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "Isikan mata kuliah", Toast.LENGTH_SHORT).show();
+                } else if (hari.equals("Pilih Hari")) {
+                    Toast.makeText(getBaseContext(), "Pilih salah satu hari", Toast.LENGTH_SHORT).show();
+                } else if (waktu.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "Isikan waktu kuliah", Toast.LENGTH_SHORT).show();
+                } else if (ruangan.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "Isikan ruangan", Toast.LENGTH_SHORT).show();
+                } else {
+                    dbManager.insertJadwal(matkul, hari, waktu, ruangan);
 
-                Intent main = new Intent(TambahJadwalActivity.this, JadwalActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Intent main = new Intent(TambahJadwalActivity.this, JadwalActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                startActivity(main);
+                    startActivity(main);
+                }
+
                 break;
         }
     }

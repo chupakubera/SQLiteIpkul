@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.matkul.DaftarMatkulActivity">
+    tools:context=".activity.matkul.DaftarMatkulActivity"
+    android:background="@drawable/gradient_1">
 
 
     <include layout="@layout/view_judul_jadwal" />
@@ -13,7 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         app:layout_constraintTop_toBottomOf="@id/view_judul_jadwal"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="27dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteX="0dp"
@@ -23,16 +24,34 @@
             android:id="@+id/list_view_jadwal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:dividerHeight="2dp"
+            android:dividerHeight="@dimen/dimen_2dp"
             android:padding="10dp">
         </ListView>
 
-        <TextView
-            android:id="@+id/empty_jadwal"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/empty_jadwal" />
+            android:orientation="vertical"
+            android:id="@+id/empty_jadwal"
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dimen_20sp"
+                android:text="@string/empty_jadwal1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dimen_20sp"
+                android:text="@string/empty_jadwal2" />
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 
@@ -40,26 +59,12 @@
         android:id="@+id/fab_jadwal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginEnd="355dp"
-        android:layout_marginBottom="675dp"
+        android:layout_margin="@dimen/dimen_16dp"
         android:baselineAlignBottom="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/navigation"
         app:srcCompat="@android:drawable/ic_input_add" />
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="@dimen/dimen_0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_0dp"
-        android:layout_marginEnd="@dimen/dimen_0dp"
-        android:background="@color/fab_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+    <include layout="@layout/view_bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

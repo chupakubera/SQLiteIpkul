@@ -4,16 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.chupakubera.sqliteipkul.R;
-import com.chupakubera.sqliteipkul.activity.matkul.DaftarMatkulActivity;
 import com.chupakubera.sqliteipkul.database.DBManager;
 
 public class UpdateJadwalActivity extends Activity implements View.OnClickListener {
     private EditText matkulText;
-    private EditText hariText;
+    private Spinner hariText;
     private EditText waktuText;
     private EditText ruanganText;
 
@@ -33,7 +35,7 @@ public class UpdateJadwalActivity extends Activity implements View.OnClickListen
         dbManager.open();
 
         matkulText = (EditText) findViewById(R.id.matkulJadwal_edittext);
-        hariText = (EditText) findViewById(R.id.hari_edittext);
+        hariText = (Spinner) findViewById(R.id.hari_spinner);
         waktuText = (EditText) findViewById(R.id.waktu_edittext);
         ruanganText = (EditText) findViewById(R.id.ruangan_edittext);
 
@@ -44,14 +46,25 @@ public class UpdateJadwalActivity extends Activity implements View.OnClickListen
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
         String matkul = intent.getStringExtra("matkul");
-        String hari = intent.getStringExtra("hari");
         String waktu = intent.getStringExtra("waktu");
         String ruangan = intent.getStringExtra("ruangan");
 
         _id = Long.parseLong(id);
 
+        // add view to spinner
+        hariText = (Spinner) findViewById(R.id.hari_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                .createFromResource(this, R.array.hari_array,
+                        android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        staticAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        hariText.setAdapter(staticAdapter);
+
+
         matkulText.setText(matkul);
-        hariText.setText(hari);
         waktuText.setText(waktu);
         ruanganText.setText(ruangan);
 
@@ -62,26 +75,39 @@ public class UpdateJadwalActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_update_matkul:
+            case R.id.btn_update_jadwal:
                 String matkul = matkulText.getText().toString();
-                String hari = matkulText.getText().toString();
                 String waktu = waktuText.getText().toString();
                 String ruangan = ruanganText.getText().toString();
 
-                dbManager.updateJadwal(_id, matkul, hari, waktu, ruangan);
-                this.returnHome();
+                // Get value of the spinner to variable hari
+                String hari = hariText.getSelectedItem().toString();
+
+                if (matkul.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "Isikan mata kuliah", Toast.LENGTH_SHORT).show();
+                } else if (hari.equals("Pilih Hari")) {
+                    Toast.makeText(getBaseContext(), "Isikan hari", Toast.LENGTH_SHORT).show();
+                } else if (waktu.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "Isikan waktu kuliah", Toast.LENGTH_SHORT).show();
+                } else if (ruangan.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "Isikan ruangan", Toast.LENGTH_SHORT).show();
+                } else {
+                    dbManager.updateJadwal(_id, matkul, hari, waktu, ruangan);
+                    this.returnJadwal();
+                }
+
                 break;
 
-            case R.id.btn_delete_matkul:
+            case R.id.btn_delete_jadwal:
                 dbManager.deleteJadwal(_id);
-                this.returnHome();
+                this.returnJadwal();
                 break;
         }
     }
 
-    public void returnHome() {
-        Intent home_intent = new Intent(getApplicationContext(), DaftarMatkulActivity.class)
+    public void returnJadwal() {
+        Intent jadwal_intent = new Intent(getApplicationContext(), JadwalActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(home_intent);
+        startActivity(jadwal_intent);
     }
 }
